@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BlogModelStoreContainer" CdmEntityContainer="BlogEntities">
+    <EntitySetMapping Name="PAGE_USER">
+      <EntityTypeMapping TypeName="BlogModel.PAGE_USER">
+        <MappingFragment StoreEntitySet="PAGE_USER">
+          <ScalarProperty Name="DISPLAY_NAME" ColumnName="DISPLAY_NAME" />
+          <ScalarProperty Name="TWITTER_PROFILE" ColumnName="TWITTER_PROFILE" />
+          <ScalarProperty Name="INSTAGRAM_PROFILE" ColumnName="INSTAGRAM_PROFILE" />
+          <ScalarProperty Name="GPLUS_PROFILE" ColumnName="GPLUS_PROFILE" />
+          <ScalarProperty Name="FACEBOOK_PROFILE" ColumnName="FACEBOOK_PROFILE" />
+          <ScalarProperty Name="ABOUT" ColumnName="ABOUT" />
+          <ScalarProperty Name="UUID" ColumnName="UUID" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+          <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+          <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+          <ScalarProperty Name="COMPANY" ColumnName="COMPANY" />
+          <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+          <ScalarProperty Name="CREATED_USER" ColumnName="CREATED_USER" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="POST_TAG">
+      <EntityTypeMapping TypeName="BlogModel.POST_TAG">
+        <MappingFragment StoreEntitySet="POST_TAG">
+          <ScalarProperty Name="POST_ID" ColumnName="POST_ID" />
+          <ScalarProperty Name="TAG_ID" ColumnName="TAG_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TAGs">
+      <EntityTypeMapping TypeName="BlogModel.TAG">
+        <MappingFragment StoreEntitySet="TAG">
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BLOG_CONFIG">
+      <EntityTypeMapping TypeName="BlogModel.BLOG_CONFIG">
+        <MappingFragment StoreEntitySet="BLOG_CONFIG">
+          <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+          <ScalarProperty Name="C_KEY" ColumnName="C_KEY" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MENUs">
+      <EntityTypeMapping TypeName="BlogModel.MENU">
+        <MappingFragment StoreEntitySet="MENU">
+          <ScalarProperty Name="KEYWORD" ColumnName="KEYWORD" />
+          <ScalarProperty Name="PAGE_SIZE" ColumnName="PAGE_SIZE" />
+          <ScalarProperty Name="SLUG" ColumnName="SLUG" />
+          <ScalarProperty Name="DISPLAY_TYPE" ColumnName="DISPLAY_TYPE" />
+          <ScalarProperty Name="DISPLAY_NAME" ColumnName="DISPLAY_NAME" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MENU_TAG">
+      <EntityTypeMapping TypeName="BlogModel.MENU_TAG">
+        <MappingFragment StoreEntitySet="MENU_TAG">
+          <ScalarProperty Name="TAG_ID" ColumnName="TAG_ID" />
+          <ScalarProperty Name="MENU_ID" ColumnName="MENU_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="POSTs">
+      <EntityTypeMapping TypeName="BlogModel.POST">
+        <MappingFragment StoreEntitySet="POST">
+          <ScalarProperty Name="MAIN_TAG" ColumnName="MAIN_TAG" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="IMAGE_COVER" ColumnName="IMAGE_COVER" />
+          <ScalarProperty Name="VIEW_COUNT" ColumnName="VIEW_COUNT" />
+          <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+          <ScalarProperty Name="META_DESC" ColumnName="META_DESC" />
+          <ScalarProperty Name="META_KEYWORD" ColumnName="META_KEYWORD" />
+          <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
+          <ScalarProperty Name="CREATED_USER" ColumnName="CREATED_USER" />
+          <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+          <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+          <ScalarProperty Name="SLUG" ColumnName="SLUG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

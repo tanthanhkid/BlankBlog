@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BlogModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Blog.dbo.BLOG_CONFIG' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BLOG_CONFIG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="C_KEY" Type="nvarchar" MaxLength="200" />
+          <Property Name="VALUE" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Blog.dbo.MENU' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MENU">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DISPLAY_NAME" Type="nvarchar" MaxLength="200" />
+          <Property Name="DISPLAY_TYPE" Type="nvarchar" MaxLength="10" />
+          <Property Name="SLUG" Type="nvarchar" MaxLength="100" />
+          <Property Name="PAGE_SIZE" Type="int" />
+          <Property Name="KEYWORD" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="MENU_TAG">
+          <Key>
+            <PropertyRef Name="MENU_ID" />
+            <PropertyRef Name="TAG_ID" />
+          </Key>
+          <Property Name="MENU_ID" Type="int" Nullable="false" />
+          <Property Name="TAG_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Blog.dbo.PAGE_USER' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PAGE_USER">
+          <Key>
+            <PropertyRef Name="UUID" />
+            <PropertyRef Name="USERNAME" />
+            <PropertyRef Name="PASSWORD" />
+          </Key>
+          <Property Name="UUID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="USERNAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="200" />
+          <Property Name="PHONE" Type="nvarchar" MaxLength="20" />
+          <Property Name="ADDRESS" Type="nvarchar" MaxLength="500" />
+          <Property Name="GENDER" Type="varchar" MaxLength="1" />
+          <Property Name="COMPANY" Type="nvarchar" MaxLength="500" />
+          <Property Name="CREATED_DATE" Type="date" />
+          <Property Name="CREATED_USER" Type="nvarchar" MaxLength="100" />
+          <Property Name="ABOUT" Type="nvarchar" MaxLength="1000" />
+          <Property Name="FACEBOOK_PROFILE" Type="nvarchar" MaxLength="1000" />
+          <Property Name="GPLUS_PROFILE" Type="nvarchar" MaxLength="1000" />
+          <Property Name="INSTAGRAM_PROFILE" Type="nvarchar" MaxLength="1000" />
+          <Property Name="TWITTER_PROFILE" Type="nvarchar" MaxLength="1000" />
+          <Property Name="DISPLAY_NAME" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Blog.dbo.POST' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="POST">
+          <Key>
+            <PropertyRef Name="SLUG" />
+            <PropertyRef Name="META_KEYWORD" />
+            <PropertyRef Name="META_DESC" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="SLUG" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CONTENT" Type="nvarchar(max)" />
+          <Property Name="CREATED_DATE" Type="date" />
+          <Property Name="CREATED_USER" Type="nvarchar" MaxLength="100" />
+          <Property Name="IS_ACTIVE" Type="varchar" MaxLength="1" />
+          <Property Name="META_KEYWORD" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="META_DESC" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="TITLE" Type="nvarchar" MaxLength="1000" />
+          <Property Name="VIEW_COUNT" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="IMAGE_COVER" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MAIN_TAG" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="POST_TAG">
+          <Key>
+            <PropertyRef Name="TAG_ID" />
+            <PropertyRef Name="POST_ID" />
+          </Key>
+          <Property Name="TAG_ID" Type="int" Nullable="false" />
+          <Property Name="POST_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Blog.dbo.TAG' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TAG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityContainer Name="BlogModelStoreContainer">
+          <EntitySet Name="MENU_TAG" EntityType="Self.MENU_TAG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="POST_TAG" EntityType="Self.POST_TAG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BLOG_CONFIG" EntityType="Self.BLOG_CONFIG" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BLOG_CONFIG].[ID] AS [ID], 
+    [BLOG_CONFIG].[C_KEY] AS [C_KEY], 
+    [BLOG_CONFIG].[VALUE] AS [VALUE]
+    FROM [dbo].[BLOG_CONFIG] AS [BLOG_CONFIG]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MENU" EntityType="Self.MENU" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MENU].[ID] AS [ID], 
+    [MENU].[DISPLAY_NAME] AS [DISPLAY_NAME], 
+    [MENU].[DISPLAY_TYPE] AS [DISPLAY_TYPE], 
+    [MENU].[SLUG] AS [SLUG], 
+    [MENU].[PAGE_SIZE] AS [PAGE_SIZE], 
+    [MENU].[KEYWORD] AS [KEYWORD]
+    FROM [dbo].[MENU] AS [MENU]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PAGE_USER" EntityType="Self.PAGE_USER" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PAGE_USER].[UUID] AS [UUID], 
+    [PAGE_USER].[USERNAME] AS [USERNAME], 
+    [PAGE_USER].[PASSWORD] AS [PASSWORD], 
+    [PAGE_USER].[EMAIL] AS [EMAIL], 
+    [PAGE_USER].[PHONE] AS [PHONE], 
+    [PAGE_USER].[ADDRESS] AS [ADDRESS], 
+    [PAGE_USER].[GENDER] AS [GENDER], 
+    [PAGE_USER].[COMPANY] AS [COMPANY], 
+    [PAGE_USER].[CREATED_DATE] AS [CREATED_DATE], 
+    [PAGE_USER].[CREATED_USER] AS [CREATED_USER], 
+    [PAGE_USER].[ABOUT] AS [ABOUT], 
+    [PAGE_USER].[FACEBOOK_PROFILE] AS [FACEBOOK_PROFILE], 
+    [PAGE_USER].[GPLUS_PROFILE] AS [GPLUS_PROFILE], 
+    [PAGE_USER].[INSTAGRAM_PROFILE] AS [INSTAGRAM_PROFILE], 
+    [PAGE_USER].[TWITTER_PROFILE] AS [TWITTER_PROFILE], 
+    [PAGE_USER].[DISPLAY_NAME] AS [DISPLAY_NAME]
+    FROM [dbo].[PAGE_USER] AS [PAGE_USER]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="POST" EntityType="Self.POST" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [POST].[SLUG] AS [SLUG], 
+    [POST].[CONTENT] AS [CONTENT], 
+    [POST].[CREATED_DATE] AS [CREATED_DATE], 
+    [POST].[CREATED_USER] AS [CREATED_USER], 
+    [POST].[IS_ACTIVE] AS [IS_ACTIVE], 
+    [POST].[META_KEYWORD] AS [META_KEYWORD], 
+    [POST].[META_DESC] AS [META_DESC], 
+    [POST].[TITLE] AS [TITLE], 
+    [POST].[VIEW_COUNT] AS [VIEW_COUNT], 
+    [POST].[IMAGE_COVER] AS [IMAGE_COVER], 
+    [POST].[ID] AS [ID], 
+    [POST].[MAIN_TAG] AS [MAIN_TAG]
+    FROM [dbo].[POST] AS [POST]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TAG" EntityType="Self.TAG" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TAG].[ID] AS [ID], 
+    [TAG].[NAME] AS [NAME]
+    FROM [dbo].[TAG] AS [TAG]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BlogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PAGE_USER">
+          <Key>
+            <PropertyRef Name="UUID" />
+            <PropertyRef Name="USERNAME" />
+            <PropertyRef Name="PASSWORD" />
+          </Key>
+          <Property Name="UUID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="USERNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PHONE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="GENDER" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANY" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="0" />
+          <Property Name="CREATED_USER" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ABOUT" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="FACEBOOK_PROFILE" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="GPLUS_PROFILE" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="INSTAGRAM_PROFILE" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="TWITTER_PROFILE" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="DISPLAY_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="BlogEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PAGE_USER" EntityType="Self.PAGE_USER" />
+          <EntitySet Name="POST_TAG" EntityType="BlogModel.POST_TAG" />
+          <EntitySet Name="TAGs" EntityType="BlogModel.TAG" />
+          <EntitySet Name="BLOG_CONFIG" EntityType="BlogModel.BLOG_CONFIG" />
+          <EntitySet Name="MENUs" EntityType="BlogModel.MENU" />
+          <EntitySet Name="MENU_TAG" EntityType="BlogModel.MENU_TAG" />
+          <EntitySet Name="POSTs" EntityType="BlogModel.POST" />
+        </EntityContainer>
+        <EntityType Name="POST_TAG">
+          <Key>
+            <PropertyRef Name="TAG_ID" />
+            <PropertyRef Name="POST_ID" />
+          </Key>
+          <Property Name="TAG_ID" Type="Int32" Nullable="false" />
+          <Property Name="POST_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TAG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BLOG_CONFIG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="C_KEY" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="VALUE" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MENU">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DISPLAY_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DISPLAY_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SLUG" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PAGE_SIZE" Type="Int32" />
+          <Property Name="KEYWORD" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MENU_TAG">
+          <Key>
+            <PropertyRef Name="MENU_ID" />
+            <PropertyRef Name="TAG_ID" />
+          </Key>
+          <Property Name="MENU_ID" Type="Int32" Nullable="false" />
+          <Property Name="TAG_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="POST">
+          <Key>
+            <PropertyRef Name="SLUG" />
+            <PropertyRef Name="META_KEYWORD" />
+            <PropertyRef Name="META_DESC" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="SLUG" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CONTENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="0" />
+          <Property Name="CREATED_USER" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IS_ACTIVE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="META_KEYWORD" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="META_DESC" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="TITLE" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="VIEW_COUNT" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IMAGE_COVER" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MAIN_TAG" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BlogModelStoreContainer" CdmEntityContainer="BlogEntities">
+          <EntitySetMapping Name="PAGE_USER">
+            <EntityTypeMapping TypeName="BlogModel.PAGE_USER">
+              <MappingFragment StoreEntitySet="PAGE_USER">
+                <ScalarProperty Name="DISPLAY_NAME" ColumnName="DISPLAY_NAME" />
+                <ScalarProperty Name="TWITTER_PROFILE" ColumnName="TWITTER_PROFILE" />
+                <ScalarProperty Name="INSTAGRAM_PROFILE" ColumnName="INSTAGRAM_PROFILE" />
+                <ScalarProperty Name="GPLUS_PROFILE" ColumnName="GPLUS_PROFILE" />
+                <ScalarProperty Name="FACEBOOK_PROFILE" ColumnName="FACEBOOK_PROFILE" />
+                <ScalarProperty Name="ABOUT" ColumnName="ABOUT" />
+                <ScalarProperty Name="UUID" ColumnName="UUID" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="COMPANY" ColumnName="COMPANY" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="CREATED_USER" ColumnName="CREATED_USER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POST_TAG">
+            <EntityTypeMapping TypeName="BlogModel.POST_TAG">
+              <MappingFragment StoreEntitySet="POST_TAG">
+                <ScalarProperty Name="POST_ID" ColumnName="POST_ID" />
+                <ScalarProperty Name="TAG_ID" ColumnName="TAG_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAGs">
+            <EntityTypeMapping TypeName="BlogModel.TAG">
+              <MappingFragment StoreEntitySet="TAG">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BLOG_CONFIG">
+            <EntityTypeMapping TypeName="BlogModel.BLOG_CONFIG">
+              <MappingFragment StoreEntitySet="BLOG_CONFIG">
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+                <ScalarProperty Name="C_KEY" ColumnName="C_KEY" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MENUs">
+            <EntityTypeMapping TypeName="BlogModel.MENU">
+              <MappingFragment StoreEntitySet="MENU">
+                <ScalarProperty Name="KEYWORD" ColumnName="KEYWORD" />
+                <ScalarProperty Name="PAGE_SIZE" ColumnName="PAGE_SIZE" />
+                <ScalarProperty Name="SLUG" ColumnName="SLUG" />
+                <ScalarProperty Name="DISPLAY_TYPE" ColumnName="DISPLAY_TYPE" />
+                <ScalarProperty Name="DISPLAY_NAME" ColumnName="DISPLAY_NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MENU_TAG">
+            <EntityTypeMapping TypeName="BlogModel.MENU_TAG">
+              <MappingFragment StoreEntitySet="MENU_TAG">
+                <ScalarProperty Name="TAG_ID" ColumnName="TAG_ID" />
+                <ScalarProperty Name="MENU_ID" ColumnName="MENU_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POSTs">
+            <EntityTypeMapping TypeName="BlogModel.POST">
+              <MappingFragment StoreEntitySet="POST">
+                <ScalarProperty Name="MAIN_TAG" ColumnName="MAIN_TAG" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IMAGE_COVER" ColumnName="IMAGE_COVER" />
+                <ScalarProperty Name="VIEW_COUNT" ColumnName="VIEW_COUNT" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+                <ScalarProperty Name="META_DESC" ColumnName="META_DESC" />
+                <ScalarProperty Name="META_KEYWORD" ColumnName="META_KEYWORD" />
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
+                <ScalarProperty Name="CREATED_USER" ColumnName="CREATED_USER" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="SLUG" ColumnName="SLUG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
