@@ -22,6 +22,7 @@
     <Property Name="INSTAGRAM_PROFILE" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="TWITTER_PROFILE" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="DISPLAY_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IMAGE_PROFILE" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityContainer Name="BlogEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="PAGE_USER" EntityType="Self.PAGE_USER" />
@@ -76,9 +77,6 @@
   </EntityType>
   <EntityType Name="POST">
     <Key>
-      <PropertyRef Name="SLUG" />
-      <PropertyRef Name="META_KEYWORD" />
-      <PropertyRef Name="META_DESC" />
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="SLUG" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />

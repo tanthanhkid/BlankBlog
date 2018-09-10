@@ -313,6 +313,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\DetailBlog.cshtml" />
     <Content Include="Views\Home\NotFound.cshtml" />
+    <Content Include="Views\Home\RightColumn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

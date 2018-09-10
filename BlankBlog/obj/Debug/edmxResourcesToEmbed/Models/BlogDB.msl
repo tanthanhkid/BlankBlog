@@ -4,6 +4,7 @@
     <EntitySetMapping Name="PAGE_USER">
       <EntityTypeMapping TypeName="BlogModel.PAGE_USER">
         <MappingFragment StoreEntitySet="PAGE_USER">
+          <ScalarProperty Name="IMAGE_PROFILE" ColumnName="IMAGE_PROFILE" />
           <ScalarProperty Name="DISPLAY_NAME" ColumnName="DISPLAY_NAME" />
           <ScalarProperty Name="TWITTER_PROFILE" ColumnName="TWITTER_PROFILE" />
           <ScalarProperty Name="INSTAGRAM_PROFILE" ColumnName="INSTAGRAM_PROFILE" />

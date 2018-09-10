@@ -30,5 +30,6 @@ namespace BlankBlog.Models
         public string INSTAGRAM_PROFILE { get; set; }
         public string TWITTER_PROFILE { get; set; }
         public string DISPLAY_NAME { get; set; }
+        public string IMAGE_PROFILE { get; set; }
     }
 }

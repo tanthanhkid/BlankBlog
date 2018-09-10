@@ -55,14 +55,10 @@ warning 6002: The table/view 'Blog.dbo.PAGE_USER' does not have a primary key de
     <Property Name="INSTAGRAM_PROFILE" Type="nvarchar" MaxLength="1000" />
     <Property Name="TWITTER_PROFILE" Type="nvarchar" MaxLength="1000" />
     <Property Name="DISPLAY_NAME" Type="nvarchar" MaxLength="500" />
+    <Property Name="IMAGE_PROFILE" Type="nvarchar" MaxLength="1000" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Blog.dbo.POST' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="POST">
     <Key>
-      <PropertyRef Name="SLUG" />
-      <PropertyRef Name="META_KEYWORD" />
-      <PropertyRef Name="META_DESC" />
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="SLUG" Type="nvarchar" MaxLength="500" Nullable="false" />
@@ -97,6 +93,7 @@ warning 6002: The table/view 'Blog.dbo.TAG' does not have a primary key defined.
   </EntityType>
   <EntityContainer Name="BlogModelStoreContainer">
     <EntitySet Name="MENU_TAG" EntityType="Self.MENU_TAG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="POST" EntityType="Self.POST" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="POST_TAG" EntityType="Self.POST_TAG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BLOG_CONFIG" EntityType="Self.BLOG_CONFIG" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -132,24 +129,9 @@ warning 6002: The table/view 'Blog.dbo.TAG' does not have a primary key defined.
     [PAGE_USER].[GPLUS_PROFILE] AS [GPLUS_PROFILE], 
     [PAGE_USER].[INSTAGRAM_PROFILE] AS [INSTAGRAM_PROFILE], 
     [PAGE_USER].[TWITTER_PROFILE] AS [TWITTER_PROFILE], 
-    [PAGE_USER].[DISPLAY_NAME] AS [DISPLAY_NAME]
+    [PAGE_USER].[DISPLAY_NAME] AS [DISPLAY_NAME], 
+    [PAGE_USER].[IMAGE_PROFILE] AS [IMAGE_PROFILE]
     FROM [dbo].[PAGE_USER] AS [PAGE_USER]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="POST" EntityType="Self.POST" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [POST].[SLUG] AS [SLUG], 
-    [POST].[CONTENT] AS [CONTENT], 
-    [POST].[CREATED_DATE] AS [CREATED_DATE], 
-    [POST].[CREATED_USER] AS [CREATED_USER], 
-    [POST].[IS_ACTIVE] AS [IS_ACTIVE], 
-    [POST].[META_KEYWORD] AS [META_KEYWORD], 
-    [POST].[META_DESC] AS [META_DESC], 
-    [POST].[TITLE] AS [TITLE], 
-    [POST].[VIEW_COUNT] AS [VIEW_COUNT], 
-    [POST].[IMAGE_COVER] AS [IMAGE_COVER], 
-    [POST].[ID] AS [ID], 
-    [POST].[MAIN_TAG] AS [MAIN_TAG]
-    FROM [dbo].[POST] AS [POST]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="TAG" EntityType="Self.TAG" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 

@@ -11,7 +11,7 @@
         <EntityTypeShape EntityType="BlogModel.BLOG_CONFIG" Width="1.5" PointX="5.375" PointY="3.75" />
         <EntityTypeShape EntityType="BlogModel.MENU" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="BlogModel.MENU_TAG" Width="1.5" PointX="4.875" PointY="1" />
-        <EntityTypeShape EntityType="BlogModel.POST" Width="1.5" PointX="7.5" PointY="1" />
+        <EntityTypeShape EntityType="BlogModel.POST" Width="1.5" PointX="7.875" PointY="0.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
