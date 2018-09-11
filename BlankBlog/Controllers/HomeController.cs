@@ -48,7 +48,7 @@ namespace BlankBlog.Controllers
             DateTime createdDate = new DateTime(year, month, date);
 
             POST content = new POST();
-            
+
             content = db.POSTs.FirstOrDefault(c => c.SLUG.Equals(slug) && DbFunctions.TruncateTime(c.CREATED_DATE) == createdDate && c.IS_ACTIVE.Equals("1"));
 
             //CAN'T FIND POST, REDIRECT TO 404 PAGE
@@ -60,14 +60,44 @@ namespace BlankBlog.Controllers
             viewModel.Post = content;
 
             //GET POST'S TAG
-            viewModel.Tags = db.TAGs.SqlQuery(string.Format( "select tb2.* from POST tb1, TAG tb2, POST_TAG tb3 where tb1.ID=tb3.POST_ID and tb3.TAG_ID=tb2.ID and tb1.ID={0}",content.ID)).ToList<TAG>();
+            viewModel.Tags = db.TAGs.SqlQuery(string.Format("SELECT TB2.* FROM POST TB1, TAG TB2, POST_TAG TB3 WHERE TB1.ID=TB3.POST_ID AND TB3.TAG_ID=TB2.ID AND TB1.ID={0}", content.ID)).ToList<TAG>();
 
             //GET POST'S AUTHOR
             viewModel.Author = db.PAGE_USER.FirstOrDefault(c => c.USERNAME.Equals(content.CREATED_USER));
 
-            
+            //GET PREV AND NEXT POSTs
+            try
+            {
+                string sql = string.Format(@"SELECT CONVERT(nvarchar,ISNULL( K.PREV,0))+'#'+CONVERT(nvarchar,ISNULL( K.NEXT,0)) 
+                                         FROM(
+	                                          SELECT LAG(P.ID) OVER(ORDER BY P.ID) PREV,
+			                                         P.ID,
+			                                         LEAD(P.ID) OVER(ORDER BY P.ID) NEXT
+	                                          FROM	POST P
+	                                          WHERE	P.ID<=({0}*2) AND IS_ACTIVE='1' ) K
+                                         WHERE ID={1}", content.ID <= 1 ? 2 : content.ID, content.ID);
+                string[] nearById = db.Database.SqlQuery<string>(sql).ToList().FirstOrDefault().Split('#');
+                //GET PREV_ID#NEXT_ID
+                int prevId = Convert.ToInt32(nearById[0]);
+                int nextId = Convert.ToInt32(nearById[1]);
+
+                viewModel.PrevPost = db.POSTs.Where(c => c.ID.Equals(prevId)).Select(c => new PostViewModel { TITLE = c.TITLE, IMAGE_COVER = c.IMAGE_COVER, SLUG = c.SLUG }).FirstOrDefault();
+                viewModel.NextPost = db.POSTs.Where(c => c.ID.Equals(nextId)).Select(c => new PostViewModel { TITLE = c.TITLE, IMAGE_COVER = c.IMAGE_COVER, SLUG = c.SLUG }).FirstOrDefault();
+
+                if (viewModel.PrevPost == null) { viewModel.PrevPost = new PostViewModel() { SLUG = "/", TITLE = "No previous post" }; }
+                if (viewModel.NextPost == null) { viewModel.NextPost = new PostViewModel() { SLUG = "/", TITLE = "No next post" }; }
+
+            }
+            catch (Exception ex)
+            {
+                viewModel.PrevPost = new PostViewModel() { SLUG = "/", TITLE = "No previous post" };
+                viewModel.NextPost = new PostViewModel() { SLUG = "/", TITLE = "No next post" };
+            }
+
+
+
             //SETTING VIEWBAG 
-            ViewBag.Title = content.TITLE; 
+            ViewBag.Title = content.TITLE;
             return View(viewModel);
         }
 
@@ -75,10 +105,10 @@ namespace BlankBlog.Controllers
         /// RETURN 404 PAGE
         /// </summary>
         /// <returns></returns>
-        [Route(Name ="404")]
-        public ActionResult NotFound( )
+        [Route(Name = "404")]
+        public ActionResult NotFound()
         {
-             
+
             return View();
         }
 

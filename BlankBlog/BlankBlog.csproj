@@ -192,6 +192,7 @@
     <Compile Include="Models\POST.cs">
       <DependentUpon>BlogDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\POST_TAG.cs">
       <DependentUpon>BlogDB.tt</DependentUpon>
     </Compile>

@@ -12,7 +12,7 @@
                     <div class="post-category">
                         <a href="category.html">@Model.Post.MAIN_TAG</a>
                     </div>
-                    <h1>@Model.Post.TITLE</h1>
+                    <h1>@Model.Post.TITLE @ViewBag.NB</h1>
                     <ul class="post-meta">
                         <li><a href="author.html">@Model.Author.DISPLAY_NAME</a></li>
                         <li>@Model.Post.CREATED_DATE.GetValueOrDefault().ToString("dd MMM yyyy")</li>
@@ -70,14 +70,14 @@
                 <div class="section-row">
                     <div class="post-nav">
                         <div class="prev-post">
-                            <a class="post-img" href="blog-post.html"><img src="~/Content/Template/img/widget-8.jpg" alt=""></a>
-                            <h3 class="post-title"><a href="#">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
+                            <a class="post-img" href="@HttpContext.Current.Request"><img src="~/Content/@Model.PrevPost.IMAGE_COVER" alt=""></a>
+                            <h3 class="post-title"><a href="#">@Model.PrevPost.TITLE</a></h3>
                             <span>Previous post</span>
                         </div>
 
                         <div class="next-post">
-                            <a class="post-img" href="blog-post.html"><img src="~/Content/Template/img/widget-10.jpg" alt=""></a>
-                            <h3 class="post-title"><a href="#">Postea senserit id eos, vivendo periculis ei qui</a></h3>
+                            <a class="post-img" href="@HttpContext.Current.Request"><img src="~/Content/@Model.NextPost.IMAGE_COVER" alt=""></a>
+                            <h3 class="post-title"><a href="#">@Model.NextPost.TITLE</a></h3>
                             <span>Next post</span>
                         </div>
                     </div>
