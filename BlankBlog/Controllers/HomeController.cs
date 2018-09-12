@@ -12,24 +12,6 @@ namespace BlankBlog.Controllers
     {
         public ActionResult Index()
         {
-            //BlogEntities db = new BlogEntities();
-            //for (int i = 7; i < 1000; i++)
-            //{
-            //    POST post = new POST()
-            //    {
-            //        SLUG= "bai-viet-test-so-"+i,
-            //        CONTENT=" sad asdsad sadsad sad as as d",
-            //        CREATED_USER="admin",
-            //        META_KEYWORD="sda sad asd",
-            //        META_DESC="asd adsa dsad",
-            //        TITLE= "bai viet so "+i,
-            //        VIEW_COUNT=0,
-            //        IMAGE_COVER= "Template/img/header-1.jpg",
-            //        MAIN_TAG= "lifestyle"
-            //    };
-            //    db.POSTs.Add(post);
-            //}
-            //db.SaveChanges();
             return View();
         }
 
@@ -41,6 +23,7 @@ namespace BlankBlog.Controllers
         /// <param name="date">CREATED DATE</param>
         /// <param name="slug">SLUG VALUE</param>
         /// <returns></returns>
+        [OutputCache(Duration = 30 * 60000)]
         public ActionResult DetailBlog(string slug)
         {
             DetailBlogViewModel viewModel = new DetailBlogViewModel();
@@ -120,13 +103,14 @@ namespace BlankBlog.Controllers
         /// </summary>
         /// <returns></returns>
         [Route(Name = "404")]
+        [OutputCache(Duration = 30 * 60000)]
         public ActionResult NotFound()
         {
-
             return View();
         }
 
         [ChildActionOnly]
+        [OutputCache(Duration = 30 * 60000)]
         public ActionResult RightColumn()
         {
             BlogEntities db = new BlogEntities();
@@ -137,7 +121,7 @@ namespace BlankBlog.Controllers
             viewModel.TagCounts = db.Database.SqlQuery<string>(sql).ToList();
 
             //GET POPULAR POST
-            viewModel.PopularPosts = db.POSTs.SqlQuery("SELECT TOP 4 * FROM POST ORDER BY VIEW_COUNT DESC").Select(c => new PostViewModel { TITLE = c.TITLE, IMAGE_COVER = c.IMAGE_COVER, SLUG = c.SLUG, CREATED_DATE = c.CREATED_DATE, CREATED_USER = c.CREATED_USER }).ToList();
+            viewModel.PopularPosts = db.POSTs.SqlQuery("SELECT TOP 4 * FROM POST ORDER BY VIEW_COUNT DESC").Select(c => new PostViewModel { TITLE = c.TITLE, IMAGE_COVER = c.IMAGE_COVER, SLUG = c.SLUG, CREATED_DATE = c.CREATED_DATE, CREATED_USER = c.CREATED_USER, MAIN_TAG = c.MAIN_TAG }).ToList();
 
             return PartialView(viewModel);
         }

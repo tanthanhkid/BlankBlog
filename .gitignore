@@ -1,6 +1,6 @@
-.vs/
-BlankBlog/bin/
-BlankBlog/obj/
+.vs
+bin
+obj
 *.com
 *.class
 *.dll
