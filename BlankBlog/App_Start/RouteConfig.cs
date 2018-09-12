@@ -16,7 +16,7 @@ namespace BlankBlog
 
             routes.MapRoute(
                 name: "DetailBlog",
-                url: "{year}/{month}/{date}/{slug}",
+                url: "{slug}",
                 defaults: new { controller = "Home", action = "DetailBlog" },
                 constraints: new { slug = ".+" }
             );

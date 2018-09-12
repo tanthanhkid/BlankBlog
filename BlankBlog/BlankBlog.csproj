@@ -196,6 +196,7 @@
     <Compile Include="Models\POST_TAG.cs">
       <DependentUpon>BlogDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RightColumnViewModel.cs" />
     <Compile Include="Models\TAG.cs">
       <DependentUpon>BlogDB.tt</DependentUpon>
     </Compile>

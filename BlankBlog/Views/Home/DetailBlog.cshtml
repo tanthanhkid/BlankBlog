@@ -1,11 +1,13 @@
 ﻿@using BlankBlog.Models
 @model DetailBlogViewModel
-
+@{
+    string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+}
 
 <div>
     <!-- PAGE HEADER -->
     <div id="post-header" class="page-header">
-        <div class="page-header-bg" style="background-image: url(@Url.Content("~/Content/"+Model.Post.IMAGE_COVER)); background-position: 0% 0%;" data-stellar-background-ratio="0.5"></div>
+        <div class="page-header-bg" style="background-image: url(@Url.Content("~/Content/" + Model.Post.IMAGE_COVER)); background-position: 0% 0%;" data-stellar-background-ratio="0.5"></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-10">
@@ -70,15 +72,15 @@
                 <div class="section-row">
                     <div class="post-nav">
                         <div class="prev-post">
-                            <a class="post-img" href="@HttpContext.Current.Request"><img src="~/Content/@Model.PrevPost.IMAGE_COVER" alt=""></a>
-                            <h3 class="post-title"><a href="#">@Model.PrevPost.TITLE</a></h3>
-                            <span>Previous post</span>
+                            <a class="post-img" href="@domainName/@Model.PrevPost.SLUG"><img src="~/Content/@Model.PrevPost.IMAGE_COVER" alt=""></a>
+                            <h3 class="post-title"><a href="@domainName/@Model.PrevPost.SLUG">@Model.PrevPost.TITLE</a></h3>
+                            <span>Bài viết trước</span>
                         </div>
 
                         <div class="next-post">
-                            <a class="post-img" href="@HttpContext.Current.Request"><img src="~/Content/@Model.NextPost.IMAGE_COVER" alt=""></a>
-                            <h3 class="post-title"><a href="#">@Model.NextPost.TITLE</a></h3>
-                            <span>Next post</span>
+                            <a class="post-img" href="@domainName/@Model.NextPost.SLUG"><img src="~/Content/@Model.NextPost.IMAGE_COVER" alt=""></a>
+                            <h3 class="post-title"><a href="@domainName/@Model.NextPost.SLUG">@Model.NextPost.TITLE</a></h3>
+                            <span>Bài viết kế tiếp</span>
                         </div>
                     </div>
                 </div>
@@ -109,62 +111,32 @@
                 <!-- /related post -->
                 <div>
                     <div class="section-title">
-                        <h3 class="title">Related Posts</h3>
+                        <h3 class="title">Bài viết liên quan</h3>
                     </div>
                     <div class="row">
-                        <!-- post -->
-                        <div class="col-md-4">
-                            <div class="post post-sm">
-                                <a class="post-img" href="blog-post.html"><img src="~/Content/Template/img/post-4.jpg" alt=""></a>
-                                <div class="post-body">
-                                    <div class="post-category">
-                                        <a href="category.html">Health</a>
+                        @if (Model.RelatedPosts != null)
+                        {
+                            foreach (PostViewModel item in Model.RelatedPosts)
+                            {
+                                <!-- post -->
+                                <div class="col-md-4">
+                                    <div class="post post-sm">
+                                        <a class="post-img" href="@domainName/@item.SLUG"><img src="~/Content/@item.IMAGE_COVER" alt=""></a>
+                                        <div class="post-body">
+                                            <div class="post-category">
+                                                <a href="category.html">@item.MAIN_TAG</a>
+                                            </div>
+                                            <h3 class="post-title title-sm"><a href="@domainName/@item.SLUG">@item.TITLE</a></h3>
+                                            <ul class="post-meta">
+                                                <li><a href="#">@item.CREATED_USER</a></li>
+                                                <li>@item.CREATED_DATE.GetValueOrDefault().ToString("dd MMM yyyy")</li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <h3 class="post-title title-sm"><a href="blog-post.html">Postea senserit id eos, vivendo periculis ei qui</a></h3>
-                                    <ul class="post-meta">
-                                        <li><a href="author.html">John Doe</a></li>
-                                        <li>20 April 2018</li>
-                                    </ul>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- /post -->
-                        <!-- post -->
-                        <div class="col-md-4">
-                            <div class="post post-sm">
-                                <a class="post-img" href="blog-post.html"><img src="~/Content/Template/img/post-6.jpg" alt=""></a>
-                                <div class="post-body">
-                                    <div class="post-category">
-                                        <a href="category.html">Fashion</a>
-                                        <a href="category.html">Lifestyle</a>
-                                    </div>
-                                    <h3 class="post-title title-sm"><a href="blog-post.html">Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</a></h3>
-                                    <ul class="post-meta">
-                                        <li><a href="author.html">John Doe</a></li>
-                                        <li>20 April 2018</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /post -->
-                        <!-- post -->
-                        <div class="col-md-4">
-                            <div class="post post-sm">
-                                <a class="post-img" href="blog-post.html"><img src="~/Content/Template/img/post-7.jpg" alt=""></a>
-                                <div class="post-body">
-                                    <div class="post-category">
-                                        <a href="category.html">Health</a>
-                                        <a href="category.html">Lifestyle</a>
-                                    </div>
-                                    <h3 class="post-title title-sm"><a href="blog-post.html">Ne bonorum praesent cum, labitur persequeris definitionem quo cu?</a></h3>
-                                    <ul class="post-meta">
-                                        <li><a href="author.html">John Doe</a></li>
-                                        <li>20 April 2018</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /post -->
+                                <!-- /post -->
+                            }
+                        }
                     </div>
                 </div>
                 <!-- /related post -->
@@ -259,7 +231,7 @@
                 <!-- /post reply -->
             </div>
             <div class="col-md-4">
-                @Html.Partial("RightColumn")
+                @{Html.RenderAction("RightColumn");}
             </div>
         </div>
         <!-- /row -->

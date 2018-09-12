@@ -12,5 +12,6 @@ namespace BlankBlog.Models
         public PAGE_USER Author { get; set; }
         public PostViewModel PrevPost { get; set; }
         public PostViewModel NextPost { get; set; }
+        public List<PostViewModel> RelatedPosts { get; set; }
     }
 }
