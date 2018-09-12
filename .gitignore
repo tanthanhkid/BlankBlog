@@ -1,6 +1,11 @@
-.vs
-bin
-obj
+/build/
+*.suo
+*.user
+.vs/
+bin/
+obj/
+Debug/
+Release/
 *.com
 *.class
 *.dll
