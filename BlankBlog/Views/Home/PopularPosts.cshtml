@@ -1,0 +1,66 @@
+﻿@using BlankBlog.Models
+@model List<PostViewModel>
+@{ 
+    PostViewModel p1 = Model[0];
+    PostViewModel p2 = Model[1];
+    PostViewModel p3 = Model[2];
+    string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+}
+<div class="container">
+     
+    <!-- row -->
+    <div id="hot-post" class="row hot-post">
+        <div class="col-md-8 hot-post-left">
+            <!-- post -->
+            <div class="post post-thumb">
+                <a class="post-img" href="@domainName/@p1.SLUG"><img src="~/Content/@p1.IMAGE_COVER" alt=""></a>
+                <div class="post-body">
+                    <div class="post-category">
+                        <a href="category.html">@p1.MAIN_TAG</a>
+                    </div>
+                    <h3 class="post-title title-lg"><a href="@domainName/@p1.SLUG">@p1.TITLE</a></h3>
+                    <ul class="post-meta">
+                        <li><a href="author.html">@p1.CREATED_USER</a></li>
+                        <li>@p1.CREATED_DATE.GetValueOrDefault().ToString("dd MMM yyyy")</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /post -->
+        </div>
+        <div class="col-md-4 hot-post-right">
+            <!-- post -->
+            <div class="post post-thumb">
+                <a class="post-img" href="@domainName/@p2.SLUG"><img src="~/Content/@p2.IMAGE_COVER" alt=""></a>
+                <div class="post-body">
+                    <div class="post-category">
+                        <a href="category.html">@p2.MAIN_TAG</a>
+                    </div>
+                    <h3 class="post-title"><a href="@domainName/@p2.SLUG">@p2.TITLE</a></h3>
+                    <ul class="post-meta">
+                        <li><a href="author.html">@p2.CREATED_USER</a></li>
+                        <li>@p2.CREATED_DATE.GetValueOrDefault().ToString("dd MMM yyyy")</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /post -->
+            <!-- post -->
+            <div class="post post-thumb">
+                <a class="post-img" href="@domainName/@p3.SLUG"><img src="~/Content/@p3.IMAGE_COVER" alt=""></a>
+                <div class="post-body">
+                    <div class="post-category">
+                        <a href="category.html">@p3.MAIN_TAG</a> 
+                    </div>
+                    <h3 class="post-title"><a href="@domainName/@p3.SLUG">@p3.TITLE</a></h3>
+                    <ul class="post-meta">
+                        <li><a href="author.html">@p3.CREATED_USER</a></li>
+                        <li>@p3.CREATED_DATE.GetValueOrDefault().ToString("dd MMM yyyy")</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /post -->
+        </div>
+    </div>
+    <!-- /row -->
+</div>
+ 
+

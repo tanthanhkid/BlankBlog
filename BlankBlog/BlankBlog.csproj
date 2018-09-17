@@ -316,6 +316,8 @@
     <Content Include="Views\Home\DetailBlog.cshtml" />
     <Content Include="Views\Home\NotFound.cshtml" />
     <Content Include="Views\Home\RightColumn.cshtml" />
+    <Content Include="Views\Home\PopularPosts.cshtml" />
+    <Content Include="Views\Home\RecentPosts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

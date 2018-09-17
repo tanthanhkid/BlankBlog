@@ -15,6 +15,63 @@ namespace BlankBlog.Controllers
             return View();
         }
 
+        #region trang chu
+        /// <summary>
+        /// Most viewed post 
+        /// </summary>
+        /// <returns></returns>
+        [ChildActionOnly]
+        public ActionResult PopularPosts()
+        {
+            List<PostViewModel> viewModel = new List<PostViewModel>();
+            BlogEntities db = new BlogEntities();
+
+            viewModel = db.POSTs.SqlQuery("SELECT TOP 3 * FROM POST ORDER BY VIEW_COUNT DESC").Select(c => new PostViewModel { TITLE = c.TITLE, IMAGE_COVER = c.IMAGE_COVER, SLUG = c.SLUG, CREATED_DATE = c.CREATED_DATE, CREATED_USER = c.CREATED_USER, MAIN_TAG = c.MAIN_TAG }).ToList();
+
+            return PartialView(viewModel);
+        }
+
+        /// <summary>
+        /// Recent post
+        /// </summary>
+        /// <returns></returns>
+        [ChildActionOnly]
+        public ActionResult RecentPosts()
+        {
+            List<PostViewModel> viewModel = new List<PostViewModel>();
+            BlogEntities db = new BlogEntities();
+
+            viewModel = db.POSTs.SqlQuery("SELECT TOP 4 * FROM POST ORDER BY CREATED_DATE ASC").Select(c => new PostViewModel { TITLE = c.TITLE, IMAGE_COVER = c.IMAGE_COVER, SLUG = c.SLUG, CREATED_DATE = c.CREATED_DATE, CREATED_USER = c.CREATED_USER, MAIN_TAG = c.MAIN_TAG }).ToList();
+
+            return PartialView(viewModel);
+        }
+
+        /// <summary>
+        /// 3 most viewed Post by tag
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        [ChildActionOnly]
+        public ActionResult PostsByTag(string tag)
+        {
+            return PartialView();
+        }
+
+        /// <summary>
+        /// top viewed post by tag
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        [ChildActionOnly]
+        public ActionResult TopPostByTag(string tag)
+        {
+            return PartialView();
+        }
+
+        #endregion
+
+
+        #region trang chi tiet
         /// <summary>
         /// GET POST CONTENT BY SLUG
         /// </summary>
@@ -98,6 +155,9 @@ namespace BlankBlog.Controllers
             return View(viewModel);
         }
 
+        #endregion
+
+        #region xai chung
         /// <summary>
         /// RETURN 404 PAGE
         /// </summary>
@@ -125,6 +185,10 @@ namespace BlankBlog.Controllers
 
             return PartialView(viewModel);
         }
+        #endregion
+
+
+
 
 
     }
