@@ -1,0 +1,40 @@
+﻿@using BlankBlog.Models
+@model PostsByTagViewModel
+@{
+    string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+}
+
+@foreach (List<PostViewModel> item in Model.list)
+{
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="section-title">
+                <h2 class="title">@item.FirstOrDefault().MAIN_TAG</h2>
+            </div>
+        </div>
+        @foreach (PostViewModel p in item)
+        {
+            <!-- post -->
+            <div class="col-md-4">
+                <div class="post post-sm">
+                    <a class="post-img" href="@domainName/@p.SLUG"><img src="~/Content/@p.IMAGE_COVER" alt=""></a>
+                    <div class="post-body">
+                        <div class="post-category">
+                            <a href="category.html">@p.MAIN_TAG</a>
+                        </div>
+                        <h3 class="post-title title-sm"><a href="@domainName/@p.SLUG">@p.TITLE</a></h3>
+                        <ul class="post-meta">
+                            <li><a href="author.html">@p.CREATED_USER</a></li>
+                            <li>@p.CREATED_DATE.GetValueOrDefault().ToString("dd MMM yyyy")</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /post -->
+        }
+
+
+    </div>
+
+}

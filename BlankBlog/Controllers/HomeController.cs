@@ -54,7 +54,21 @@ namespace BlankBlog.Controllers
         [ChildActionOnly]
         public ActionResult PostsByTag(string tag)
         {
-            return PartialView();
+            PostsByTagViewModel viewModel = new PostsByTagViewModel();
+            viewModel.list = new List<List<PostViewModel>>();
+            BlogEntities db = new BlogEntities();
+
+            List<string> tagsCount= db.Database.SqlQuery<string>("select MAIN_TAG+'#'+CONVERT(char,count(*)) from POST group by MAIN_TAG").ToList();
+            if (tagsCount != null)
+            {
+                foreach(string item in tagsCount)
+                {
+                    List<PostViewModel> tmp = db.POSTs.SqlQuery(string.Format("select top 3 * from POST where MAIN_TAG='{0}' order by CREATED_DATE desc", item.Split('#')[0])).Select(c => new PostViewModel { TITLE = c.TITLE, IMAGE_COVER = c.IMAGE_COVER, SLUG = c.SLUG, CREATED_DATE = c.CREATED_DATE, CREATED_USER = c.CREATED_USER, MAIN_TAG = c.MAIN_TAG }).ToList();
+                    if (tmp != null) { viewModel.list.Add(tmp); }
+                }
+            }
+             
+            return PartialView(viewModel);
         }
 
         /// <summary>
