@@ -1,1 +1,21 @@
-﻿ 
+﻿#paging a {
+    color: #ee4266;
+}
+
+#paging .pagination {
+    border-radius: 0px;
+}
+
+    #paging .pagination li.active a {
+        color: #fff;
+    }
+
+    #paging .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+        background-color: #ee4266;
+        border-color: #ee4266;
+        border-radius: 0px;
+    }
+
+    #paging .pagination > li > a, .pagination > li > span {
+        border-radius: 0px;
+    }

@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-md-10">
                     <div class="post-category">
-                        <a href="category.html">@Model.Post.MAIN_TAG</a>
+                        <a href="@domainName/trang-chu/danh-sach-bai-viet?category=@Model.Post.MAIN_TAG">@Model.Post.MAIN_TAG</a>
                     </div>
                     <h1>@Model.Post.TITLE @ViewBag.NB</h1>
                     <ul class="post-meta">
@@ -152,7 +152,7 @@
                                         <a class="post-img" href="@domainName/@item.SLUG"><img src="~/Content/@item.IMAGE_COVER" alt=""></a>
                                         <div class="post-body">
                                             <div class="post-category">
-                                                <a href="category.html">@item.MAIN_TAG</a>
+                                                <a href="@domainName/trang-chu/danh-sach-bai-viet?category=@item.MAIN_TAG">@item.MAIN_TAG</a>
                                             </div>
                                             <h3 class="post-title title-sm"><a href="@domainName/@item.SLUG">@item.TITLE</a></h3>
                                             <ul class="post-meta">

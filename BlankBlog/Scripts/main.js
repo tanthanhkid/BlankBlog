@@ -33,7 +33,24 @@
 
 	$('.search-close').on('click', function () {
 		$('#nav-search').removeClass('active');
-	});
+    });
+
+    ////Trang chu load more
+    //$("#loadmore-button").click(function () {
+       
+    //    var lastIndex = $("#loadmore-lastindex").val();
+    //    var to = parseInt(lastIndex) + 10;
+    //    var authorizationToken = $("#antiforgerytoken-" + lastIndex).val();
+    //    $.ajax({
+    //        url: "/Home/AllPost",
+    //        data: { from: lastIndex, to:to },
+    //        type: "GET",
+    //        beforeSend: function (xhr) { xhr.setRequestHeader('RequestVerificationToken', authorizationToken); },
+    //        success: function () { alert('Success!' + authHeader); }
+    //    });
+
+
+    //});
 
  
 })(jQuery);

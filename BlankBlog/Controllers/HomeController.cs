@@ -5,9 +5,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using BlankBlog.Helper;
 
 namespace BlankBlog.Controllers
 {
+    [RoutePrefix("trang-chu")]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -58,32 +61,38 @@ namespace BlankBlog.Controllers
             viewModel.list = new List<List<PostViewModel>>();
             BlogEntities db = new BlogEntities();
 
-            List<string> tagsCount= db.Database.SqlQuery<string>("select MAIN_TAG+'#'+CONVERT(char,count(*)) from POST group by MAIN_TAG").ToList();
+            List<string> tagsCount = db.Database.SqlQuery<string>("select MAIN_TAG+'#'+CONVERT(char,count(*)) from POST group by MAIN_TAG").ToList();
             if (tagsCount != null)
             {
-                foreach(string item in tagsCount)
+                foreach (string item in tagsCount)
                 {
                     List<PostViewModel> tmp = db.POSTs.SqlQuery(string.Format("select top 3 * from POST where MAIN_TAG='{0}' order by CREATED_DATE desc", item.Split('#')[0])).Select(c => new PostViewModel { TITLE = c.TITLE, IMAGE_COVER = c.IMAGE_COVER, SLUG = c.SLUG, CREATED_DATE = c.CREATED_DATE, CREATED_USER = c.CREATED_USER, MAIN_TAG = c.MAIN_TAG }).ToList();
                     if (tmp != null) { viewModel.list.Add(tmp); }
                 }
             }
-             
+
             return PartialView(viewModel);
         }
 
-        /// <summary>
-        /// top viewed post by tag
-        /// </summary>
-        /// <param name="tag"></param>
-        /// <returns></returns>
-        [ChildActionOnly]
-        public ActionResult TopPostByTag(string tag)
+        //[ValidateAntiForgeryToken]
+        public ActionResult AllPost()
         {
-            return PartialView();
+            int? from = 1;
+            int? to = 5;
+            BlogEntities db = new BlogEntities();
+            List<PostViewModel> viewModel = new List<PostViewModel>();
+
+            string sql = string.Format(@"SELECT * FROM ( 
+                             SELECT 
+                                  ROW_NUMBER() OVER (ORDER BY id desc) AS row, p.*
+                             FROM POST p
+                        ) AS a WHERE row BETWEEN {0} AND {1}", from == null ? 1 : from, to == null ? 5 : to);
+            viewModel = db.POSTs.SqlQuery(sql).Select(c => new PostViewModel { TITLE = c.TITLE, IMAGE_COVER = c.IMAGE_COVER, SLUG = c.SLUG, CREATED_DATE = c.CREATED_DATE, CREATED_USER = c.CREATED_USER, MAIN_TAG = c.MAIN_TAG, META_DESC = c.META_DESC }).ToList();
+
+            return PartialView(viewModel);
         }
 
         #endregion
-
 
         #region trang chi tiet
         /// <summary>
@@ -171,7 +180,44 @@ namespace BlankBlog.Controllers
 
         #endregion
 
-        #region xai chung
+        #region trang danh sach post
+        [Route("danh-sach-bai-viet")]
+        public ActionResult ListPost(int? page, string category )
+        {
+
+            BlogEntities db = new BlogEntities();
+            List<PostViewModel> viewModel = new List<PostViewModel>();
+            string sql = "";
+
+            if (category == null || category=="" )
+            {
+                sql = string.Format(@"SELECT * FROM POST ORDER BY CREATED_DATE DESC");
+                //Session["notag"] = "1";
+            }
+            else
+            {
+                //if (Session["notag"].ToString() == "1")
+                //    page = 1;
+
+
+                //Session["notag"] = 0;
+                List<TAG> tags = StaticCache.GetTags();
+                if (tags.Any(c => c.NAME.ToUpper() == category.ToUpper()))
+                    sql = string.Format(@"SELECT * FROM POST WHERE UPPER(MAIN_TAG)='{0}' ORDER BY CREATED_DATE DESC ", category.ToUpper());
+                else
+                    sql = string.Format(@"SELECT * FROM POST ORDER BY CREATED_DATE DESC");
+            }
+
+            viewModel = db.POSTs.SqlQuery(sql).Select(c => new PostViewModel { TITLE = c.TITLE, IMAGE_COVER = c.IMAGE_COVER, SLUG = c.SLUG, CREATED_DATE = c.CREATED_DATE, CREATED_USER = c.CREATED_USER, MAIN_TAG = c.MAIN_TAG, META_DESC = c.META_DESC }).ToList();
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            ViewBag.tag = category;
+            return View(viewModel.ToPagedList(pageNumber, pageSize));
+        }
+        #endregion
+
+        #region partial view xai chung
         /// <summary>
         /// RETURN 404 PAGE
         /// </summary>
@@ -191,7 +237,7 @@ namespace BlankBlog.Controllers
             RightColumnViewModel viewModel = new RightColumnViewModel();
 
             //GET CATEGORIES COUNT
-            string sql = "SELECT NAME+'$'+CONVERT(NVARCHAR, COUNT(*)) FROM TAG GROUP BY NAME";
+            string sql = "SELECT MAIN_TAG+'$'+CONVERT(NVARCHAR, COUNT(*)) FROM POST GROUP BY MAIN_TAG";
             viewModel.TagCounts = db.Database.SqlQuery<string>(sql).ToList();
 
             //GET POPULAR POST

@@ -1,0 +1,49 @@
+﻿@using BlankBlog.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<PostViewModel>
+@{
+    string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+}
+
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-8">
+                @foreach (PostViewModel item in Model)
+                {
+                    <!-- post -->
+                    <div class="post post-row">
+                        <a class="post-img" href="@domainName/@item.SLUG"><img src="~/Content/@item.IMAGE_COVER" alt=""></a>
+                        <div class="post-body">
+                            <div class="post-category">
+                                <a href="@domainName/trang-chu/danh-sach-bai-viet?category=@item.MAIN_TAG">@item.MAIN_TAG</a>
+                            </div>
+                            <h3 class="post-title"><a href="@domainName/@item.SLUG">@item.TITLE</a></h3>
+                            <ul class="post-meta">
+                                <li><a href="author.html">@item.CREATED_USER</a></li>
+                                <li>@item.CREATED_DATE.GetValueOrDefault().ToString("dd MMM yyyy")</li>
+                            </ul>
+                            <p>@item.META_DESC</p>
+                        </div>
+                    </div>
+                    <!-- /post -->
+                }
+
+                <div class="section-row  text-right" id="paging" >
+                    @Html.PagedListPager(Model, page =>  "/trang-chu/danh-sach-bai-viet?page="+  page +"&category="+ViewBag.tag   )
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                @{Html.RenderAction("RightColumn");}
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

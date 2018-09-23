@@ -12,7 +12,7 @@ namespace BlankBlog
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
                 name: "DetailBlog",
@@ -27,11 +27,11 @@ namespace BlankBlog
             defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
         );
 
-            routes.MapRoute(
-                "404-PageNotFound",
-                "{*url}",
-                new { controller = "Home", action = "NotFound" }
-            );
+            //routes.MapRoute(
+            //    "404-PageNotFound",
+            //    "{*url}",
+            //    new { controller = "Home", action = "NotFound" }
+            //);
 
 
 
