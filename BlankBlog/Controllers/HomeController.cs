@@ -13,8 +13,10 @@ namespace BlankBlog.Controllers
     [RoutePrefix("trang-chu")]
     public class HomeController : Controller
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public ActionResult Index()
         {
+            log.Info("Someone go into main page");
             return View();
         }
 
