@@ -17,7 +17,7 @@
             </div>
             <h3 class="post-title"><a href="@domainName/@item.SLUG">@item.TITLE</a></h3>
             <ul class="post-meta">
-                <li><a href="author.html">@item.CREATED_USER</a></li>
+                <li><a href="@Url.Action("AuthorPage",new {name=item.CREATED_USER })">@item.CREATED_USER</a></li>
                 <li>@item.CREATED_DATE.GetValueOrDefault().ToString("dd MMM yyyy")</li>
             </ul>
             <p>@item.META_DESC</p>

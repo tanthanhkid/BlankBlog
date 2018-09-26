@@ -1,0 +1,69 @@
+﻿@using BlankBlog.Models
+@using PagedList.Mvc
+@model AuthorPageViewModel
+@{
+    string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+}
+
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10 text-center">
+                <div class="author">
+                    <img class="author-img center-block" src="~/Content/@Model.User.IMAGE_PROFILE" alt="">
+                    <h1 class="text-uppercase">@Model.User.DISPLAY_NAME</h1>
+                    <p class="lead">@Model.User.ABOUT</p>
+                    <ul class="author-social">
+                        <li><a href="@Model.User.FACEBOOK_PROFILE"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="@Model.User.TWITTER_PROFILE"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="@Model.User.GPLUS_PROFILE"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="@Model.User.INSTAGRAM_PROFILE"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-8">
+                @foreach (PostViewModel item in Model.ListPost)
+                {
+                    <!-- post -->
+                    <div class="post post-row">
+                        <a class="post-img" href="@domainName/@item.SLUG"><img src="~/Content/@item.IMAGE_COVER" alt=""></a>
+                        <div class="post-body">
+                            <div class="post-category">
+                                <a href="@domainName/trang-chu/danh-sach-bai-viet?category=@item.MAIN_TAG">@item.MAIN_TAG</a>
+                            </div>
+                            <h3 class="post-title"><a href="@domainName/@item.SLUG">@item.TITLE</a></h3>
+                            <ul class="post-meta">
+                                <li><a href="@Url.Action("AuthorPage",new {name=item.CREATED_USER })">@item.CREATED_USER</a></li>
+                                <li>@item.CREATED_DATE.GetValueOrDefault().ToString("dd MMM yyyy")</li>
+                            </ul>
+                            <p>@item.META_DESC</p>
+                        </div>
+                    </div>
+                    <!-- /post -->
+                }
+
+                <div class="section-row  text-right" id="paging">
+                    @Html.PagedListPager(Model.ListPost, page => "/trang-chu/tac-gia?page=" + page + "&name=" + Model.User.USERNAME)
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                @{Html.RenderAction("RightColumn");}
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

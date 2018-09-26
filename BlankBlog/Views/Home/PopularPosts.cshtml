@@ -16,11 +16,11 @@
                 <a class="post-img" href="@domainName/@p1.SLUG"><img src="~/Content/@p1.IMAGE_COVER" alt=""></a>
                 <div class="post-body">
                     <div class="post-category">
-                        <a href="@domainName/trang-chu/danh-sach-bai-viet?category=@p1.MAIN_TAG">@p1.MAIN_TAG</a>
+                        <a href="@Url.Action("ListPost",new {category=p1.MAIN_TAG })">@p1.MAIN_TAG</a>
                     </div>
                     <h3 class="post-title title-lg"><a href="@domainName/@p1.SLUG">@p1.TITLE</a></h3>
                     <ul class="post-meta">
-                        <li><a href="author.html">@p1.CREATED_USER</a></li>
+                        <li><a href="@Url.Action("AuthorPage",new {name=p1.CREATED_USER })">@p1.CREATED_USER</a></li>
                         <li>@p1.CREATED_DATE.GetValueOrDefault().ToString("dd MMM yyyy")</li>
                     </ul>
                 </div>
@@ -33,11 +33,11 @@
                 <a class="post-img" href="@domainName/@p2.SLUG"><img src="~/Content/@p2.IMAGE_COVER" alt=""></a>
                 <div class="post-body">
                     <div class="post-category">
-                        <a href="@domainName/trang-chu/danh-sach-bai-viet?category=@p2.MAIN_TAG">@p2.MAIN_TAG</a>
+                        <a href="@Url.Action("ListPost",new {category=p2.MAIN_TAG })">@p2.MAIN_TAG</a>
                     </div>
                     <h3 class="post-title"><a href="@domainName/@p2.SLUG">@p2.TITLE</a></h3>
                     <ul class="post-meta">
-                        <li><a href="author.html">@p2.CREATED_USER</a></li>
+                        <li><a href="@Url.Action("AuthorPage",new {name=p2.CREATED_USER })">@p2.CREATED_USER</a></li>
                         <li>@p2.CREATED_DATE.GetValueOrDefault().ToString("dd MMM yyyy")</li>
                     </ul>
                 </div>
@@ -48,11 +48,11 @@
                 <a class="post-img" href="@domainName/@p3.SLUG"><img src="~/Content/@p3.IMAGE_COVER" alt=""></a>
                 <div class="post-body">
                     <div class="post-category">
-                        <a href="@domainName/trang-chu/danh-sach-bai-viet?category=@p3.MAIN_TAG">@p3.MAIN_TAG</a> 
+                        <a href="@Url.Action("ListPost",new {category=p3.MAIN_TAG })">@p3.MAIN_TAG</a> 
                     </div>
                     <h3 class="post-title"><a href="@domainName/@p3.SLUG">@p3.TITLE</a></h3>
                     <ul class="post-meta">
-                        <li><a href="author.html">@p3.CREATED_USER</a></li>
+                        <li><a href="@Url.Action("AuthorPage",new {name=p3.CREATED_USER })">@p3.CREATED_USER</a></li>
                         <li>@p3.CREATED_DATE.GetValueOrDefault().ToString("dd MMM yyyy")</li>
                     </ul>
                 </div>

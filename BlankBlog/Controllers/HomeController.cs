@@ -184,25 +184,19 @@ namespace BlankBlog.Controllers
 
         #region trang danh sach post
         [Route("danh-sach-bai-viet")]
-        public ActionResult ListPost(int? page, string category )
+        public ActionResult ListPost(int? page, string category)
         {
 
             BlogEntities db = new BlogEntities();
             List<PostViewModel> viewModel = new List<PostViewModel>();
             string sql = "";
 
-            if (category == null || category=="" )
+            if (category == null || category == "")
             {
                 sql = string.Format(@"SELECT * FROM POST ORDER BY CREATED_DATE DESC");
-                //Session["notag"] = "1";
             }
             else
             {
-                //if (Session["notag"].ToString() == "1")
-                //    page = 1;
-
-
-                //Session["notag"] = 0;
                 List<TAG> tags = StaticCache.GetTags();
                 if (tags.Any(c => c.NAME.ToUpper() == category.ToUpper()))
                     sql = string.Format(@"SELECT * FROM POST WHERE UPPER(MAIN_TAG)='{0}' ORDER BY CREATED_DATE DESC ", category.ToUpper());
@@ -216,6 +210,37 @@ namespace BlankBlog.Controllers
             int pageNumber = (page ?? 1);
             ViewBag.tag = category;
             return View(viewModel.ToPagedList(pageNumber, pageSize));
+        }
+        #endregion
+
+
+        #region trang danh sach post cua user
+        [Route("tac-gia")]
+        public ActionResult AuthorPage(int? page, string name)
+        {
+
+            BlogEntities db = new BlogEntities();
+            AuthorPageViewModel viewModel = new AuthorPageViewModel();
+            string sql = "";
+
+            if (name == null || name == "")
+            {
+                return RedirectToAction("ListPost");
+            }
+
+            List<PostViewModel> tmpList = db.POSTs.Where(c => c.CREATED_USER == name).Select(c => new PostViewModel { TITLE = c.TITLE, IMAGE_COVER = c.IMAGE_COVER, SLUG = c.SLUG, CREATED_DATE = c.CREATED_DATE, CREATED_USER = c.CREATED_USER, MAIN_TAG = c.MAIN_TAG, META_DESC = c.META_DESC }).ToList();
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            viewModel.ListPost = tmpList.ToPagedList(pageNumber, pageSize);
+
+            viewModel.User = db.PAGE_USER.FirstOrDefault(c => c.USERNAME == name);
+
+            if(viewModel.User == null || viewModel.ListPost == null)
+            {
+                return RedirectToAction("ListPost");
+            }
+
+            return View(viewModel);
         }
         #endregion
 

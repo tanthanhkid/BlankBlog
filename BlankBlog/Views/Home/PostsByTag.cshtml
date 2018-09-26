@@ -21,11 +21,11 @@
                     <a class="post-img" href="@domainName/@p.SLUG"><img src="~/Content/@p.IMAGE_COVER" alt=""></a>
                     <div class="post-body">
                         <div class="post-category">
-                            <a href="@domainName/trang-chu/danh-sach-bai-viet?category=@p.MAIN_TAG">@p.MAIN_TAG</a>
+                            <a href="@Url.Action("ListPost",new {category=p.MAIN_TAG })">@p.MAIN_TAG</a>
                         </div>
                         <h3 class="post-title title-sm"><a href="@domainName/@p.SLUG">@p.TITLE</a></h3>
                         <ul class="post-meta">
-                            <li><a href="author.html">@p.CREATED_USER</a></li>
+                            <li><a href="@Url.Action("AuthorPage",new {name=p.CREATED_USER })">@p.CREATED_USER</a></li>
                             <li>@p.CREATED_DATE.GetValueOrDefault().ToString("dd MMM yyyy")</li>
                         </ul>
                     </div>

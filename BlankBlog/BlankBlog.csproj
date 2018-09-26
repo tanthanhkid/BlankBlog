@@ -177,6 +177,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\StaticCache.cs" />
+    <Compile Include="Models\AuthorPageViewModel.cs" />
     <Compile Include="Models\BlogDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -342,6 +343,7 @@
     <Content Include="Views\Home\PostsByTag.cshtml" />
     <Content Include="Views\Home\AllPost.cshtml" />
     <Content Include="Views\Home\ListPost.cshtml" />
+    <Content Include="Views\Home\AuthorPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -19,12 +19,12 @@
                     <div class="post post-row">
                         <a class="post-img" href="@domainName/@item.SLUG"><img src="~/Content/@item.IMAGE_COVER" alt=""></a>
                         <div class="post-body">
-                            <div class="post-category">
-                                <a href="@domainName/trang-chu/danh-sach-bai-viet?category=@item.MAIN_TAG">@item.MAIN_TAG</a>
+                            <div class="post-category"> 
+                                <a href="@Url.Action("ListPost",new {category=item.MAIN_TAG })">@item.MAIN_TAG</a>
                             </div>
                             <h3 class="post-title"><a href="@domainName/@item.SLUG">@item.TITLE</a></h3>
                             <ul class="post-meta">
-                                <li><a href="author.html">@item.CREATED_USER</a></li>
+                                <li><a href="@Url.Action("AuthorPage",new {name=item.CREATED_USER })">@item.CREATED_USER</a></li>
                                 <li>@item.CREATED_DATE.GetValueOrDefault().ToString("dd MMM yyyy")</li>
                             </ul>
                             <p>@item.META_DESC</p>
@@ -33,9 +33,9 @@
                     <!-- /post -->
                 }
 
-                <div class="section-row  text-right" id="paging" >
-                    @Html.PagedListPager(Model, page =>  "/trang-chu/danh-sach-bai-viet?page="+  page +"&category="+ViewBag.tag   )
-                </div>
+                    <div class="section-row  text-right" id="paging"> 
+                        @Html.PagedListPager(Model, page => Url.Action("ListPost", new { page=page, category = ViewBag.tag }))
+                    </div>
             </div>
 
             <div class="col-md-4">
