@@ -14,10 +14,11 @@ namespace BlankBlog.Areas.AdminDashboard
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
+           
             context.MapRoute(
                 "AdminDashboard_default",
                 "admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { controller= "adminHome", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

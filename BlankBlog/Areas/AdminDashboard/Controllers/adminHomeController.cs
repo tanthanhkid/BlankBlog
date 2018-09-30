@@ -6,8 +6,10 @@ using System.Web.Mvc;
 
 namespace BlankBlog.Areas.AdminDashboard.Controllers
 {
+    
     public class adminHomeController : Controller
     {
+        
         // GET: AdminDashboard/adminHome
         public ActionResult Index()
         { 
